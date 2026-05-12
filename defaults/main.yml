@@ -1,0 +1,136 @@
+---
+
+# Copyright 2026 Wong Hoi Sing Edison <hswong3i@pantarei-design.com>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Release name to manage.
+helm_gitlab_helm_release_name: gitlab
+
+# Kubernetes namespace where the chart should be installed.
+helm_gitlab_helm_release_namespace: gitlab
+
+# Value to pass to chart.
+helm_gitlab_helm_release_values:
+  global:
+    image:
+      pullPolicy: IfNotPresent
+    edition: ce
+    hosts:
+      domain: "{{ inventory_hostname }}"
+      https: false
+      externalIP: "{{ ansible_facts['default_ipv4'].address }}"
+      gitlab:
+        name: "{{ inventory_hostname }}"
+    ingress:
+      enabled: true
+      class: nginx
+      configureCertmanager: false
+    minio:
+      enabled: true
+      image: registry.gitlab.com/gitlab-org/cloud-native/mirror/images/minio/minio
+      minioMc:
+        image: registry.gitlab.com/gitlab-org/cloud-native/mirror/images/minio/mc
+    appConfig:
+      certificates:
+        image:
+          repository: registry.gitlab.com/gitlab-org/build/cng/certificates
+          pullPolicy: IfNotPresent
+      kubectl:
+        image:
+          repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
+          pullPolicy: IfNotPresent
+      gitlabBase:
+        image:
+          repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
+          pullPolicy: IfNotPresent
+  installCertmanager: false
+  nginx-ingress:
+    enabled: false
+  prometheus:
+    install: false
+  redis:
+    install: true
+    image:
+      repository: bitnamilegacy/redis
+      pullPolicy: IfNotPresent
+    metrics:
+      enabled: true
+      image:
+        repository: bitnamilegacy/redis-exporter
+        pullPolicy: IfNotPresent
+  postgresql:
+    install: true 
+    image:
+      repository: bitnamilegacy/postgresql
+      pullPolicy: IfNotPresent
+    metrics:
+      enabled: true
+      image:
+        repository: bitnamilegacy/postgres-exporter
+        pullPolicy: IfNotPresent
+  registry:
+    enabled: true
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry
+      pullPolicy: IfNotPresent
+    hpa:
+      minReplicas: 1
+      maxReplicas: 1
+  shared-secrets:
+    selfsign:
+      image:
+        repository: registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign
+        pullPolicy: IfNotPresent
+  gitlab-runner:
+    install: false
+  gitlab:
+    gitaly:
+      image:
+        repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
+        pullPolicy: IfNotPresent
+      replicas: 1
+    gitlab-exporter:
+      image:
+        repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter
+        pullPolicy: IfNotPresent
+    kas:
+      image:
+        repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-kas
+        pullPolicy: IfNotPresent
+      minReplicas: 1
+      maxReplicas: 1
+    gitlab-shell:
+      image:
+        repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-shell
+        pullPolicy: IfNotPresent
+      minReplicas: 1
+      maxReplicas: 1
+    sidekiq:
+      image:
+        repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ce
+        pullPolicy: IfNotPresent
+      minReplicas: 1
+      maxReplicas: 1
+    migrations:
+      image:
+        repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ce
+        pullPolicy: IfNotPresent
+    webservice:
+      image:
+        repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ce
+        pullPolicy: IfNotPresent
+      workhorse:
+        image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ce
+      minReplicas: 1
+      maxReplicas: 1
