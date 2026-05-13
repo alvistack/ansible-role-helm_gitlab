@@ -38,9 +38,6 @@ helm_gitlab_helm_release_values:
       configureCertmanager: false
     minio:
       enabled: true
-      image: minio/minio
-      minioMc:
-        image: minio/mc
     certificates:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/certificates
@@ -87,6 +84,12 @@ helm_gitlab_helm_release_values:
         registry: docker.io
         repository: bitnamilegacy/postgres-exporter
         pullPolicy: IfNotPresent
+  minio:
+    image: docker.io/minio/minio
+    imagePullPolicy: IfNotPresent
+    minioMc:
+      image: docker.io/minio/mc
+      pullPolicy: IfNotPresent
   registry:
     enabled: true
     image:
