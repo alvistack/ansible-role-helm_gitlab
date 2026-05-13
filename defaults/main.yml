@@ -74,6 +74,11 @@ helm_gitlab_helm_release_values:
     image:
       repository: bitnamilegacy/postgresql
       pullPolicy: IfNotPresent
+    primary:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 100Mi
     metrics:
       enabled: true
       image:
@@ -122,6 +127,10 @@ helm_gitlab_helm_release_values:
         pullPolicy: IfNotPresent
       minReplicas: 1
       maxReplicas: 1
+      resources:
+        requests:
+          cpu: 450m
+          memory: 1G
     migrations:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ce
@@ -134,3 +143,7 @@ helm_gitlab_helm_release_values:
         image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ce
       minReplicas: 1
       maxReplicas: 1
+      resources:
+        requests:
+          cpu: 150m
+          memory: 1G
