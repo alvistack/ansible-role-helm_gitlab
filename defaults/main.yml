@@ -71,6 +71,7 @@ helm_gitlab_helm_release_values:
   postgresql:
     install: true 
     image:
+      registry: docker.io
       repository: bitnamilegacy/postgresql
       pullPolicy: IfNotPresent
     primary:
@@ -81,6 +82,7 @@ helm_gitlab_helm_release_values:
     metrics:
       enabled: true
       image:
+        registry: docker.io
         repository: bitnamilegacy/postgres-exporter
         pullPolicy: IfNotPresent
   registry:
