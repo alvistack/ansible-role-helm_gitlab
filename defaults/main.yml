@@ -61,11 +61,13 @@ helm_gitlab_helm_release_values:
   redis:
     install: true
     image:
+      registry: docker.io
       repository: bitnamilegacy/redis
       pullPolicy: IfNotPresent
     metrics:
       enabled: true
       image:
+        registry: docker.io
         repository: bitnamilegacy/redis-exporter
         pullPolicy: IfNotPresent
   postgresql:
