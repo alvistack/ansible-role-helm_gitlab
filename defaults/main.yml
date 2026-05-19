@@ -37,23 +37,36 @@ helm_gitlab_helm_release_values:
       class: nginx
       configureCertmanager: false
     minio:
-      enabled: true
-      image: registry.gitlab.com/gitlab-org/cloud-native/mirror/images/minio/minio
-      minioMc:
-        image: registry.gitlab.com/gitlab-org/cloud-native/mirror/images/minio/mc
+      enabled: false
     appConfig:
-      certificates:
-        image:
-          repository: registry.gitlab.com/gitlab-org/build/cng/certificates
-          pullPolicy: IfNotPresent
-      kubectl:
-        image:
-          repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
-          pullPolicy: IfNotPresent
-      gitlabBase:
-        image:
-          repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
-          pullPolicy: IfNotPresent
+      lfs:
+        enabled: false
+      artifacts:
+        enabled: false
+      uploads:
+        enabled: false
+      packages:
+        enabled: false
+      externalDiffs:
+        enabled: false
+      terraformState:
+        enabled: false
+      dependencyProxy:
+        enabled: false
+    kas:
+      enabled: false
+    certificates:
+      image:
+        repository: registry.gitlab.com/gitlab-org/build/cng/certificates
+        pullPolicy: IfNotPresent
+    kubectl:
+      image:
+        repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
+        pullPolicy: IfNotPresent
+    gitlabBase:
+      image:
+        repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
+        pullPolicy: IfNotPresent
   installCertmanager: false
   nginx-ingress:
     enabled: false
@@ -62,25 +75,40 @@ helm_gitlab_helm_release_values:
   redis:
     install: true
     image:
+      registry: docker.io
       repository: bitnamilegacy/redis
       pullPolicy: IfNotPresent
     metrics:
       enabled: true
       image:
+        registry: docker.io
         repository: bitnamilegacy/redis-exporter
         pullPolicy: IfNotPresent
   postgresql:
     install: true 
     image:
+      registry: docker.io
       repository: bitnamilegacy/postgresql
       pullPolicy: IfNotPresent
+    primary:
+      resources:
+        requests:
+          cpu: 25m
+          memory: 100Mi
     metrics:
       enabled: true
       image:
+        registry: docker.io
         repository: bitnamilegacy/postgres-exporter
         pullPolicy: IfNotPresent
+  minio:
+    image: docker.io/minio/minio
+    imagePullPolicy: IfNotPresent
+    minioMc:
+      image: docker.io/minio/mc
+      pullPolicy: IfNotPresent
   registry:
-    enabled: true
+    enabled: false
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-container-registry
       pullPolicy: IfNotPresent
@@ -100,10 +128,18 @@ helm_gitlab_helm_release_values:
         repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
         pullPolicy: IfNotPresent
       replicas: 1
+      resources:
+        requests:
+          cpu: 25m
+          memory: 100Mi
     gitlab-exporter:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter
         pullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 25m
+          memory: 100Mi
     kas:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-kas
@@ -122,15 +158,37 @@ helm_gitlab_helm_release_values:
         pullPolicy: IfNotPresent
       minReplicas: 1
       maxReplicas: 1
+      resources:
+        requests:
+          cpu: 25m
+          memory: 1G
+    toolbox:
+      enabled: false
+      image:
+        repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ce
+        pullPolicy: IfNotPresent
+      replicas: 1
     migrations:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ce
         pullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 25m
+          memory: 100Mi
     webservice:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ce
         pullPolicy: IfNotPresent
       workhorse:
         image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ce
+        resources:
+          requests:
+            cpu: 25m 
+            memory: 100Mi
       minReplicas: 1
       maxReplicas: 1
+      resources:
+        requests:
+          cpu: 25m
+          memory: 1G
