@@ -34,8 +34,6 @@ helm_gitlab_helm_release_values:
         name: "{{ inventory_hostname }}"
     ingress:
       enabled: true
-      pathType: Prefix
-      path: /gitlab
       class: nginx
       configureCertmanager: false
     minio:
@@ -188,11 +186,6 @@ helm_gitlab_helm_release_values:
           requests:
             cpu: 25m 
             memory: 100Mi
-      deployments:
-        default:
-          ingress:
-            path: /
-            pathType: Prefix
       minReplicas: 1
       maxReplicas: 1
       resources:
