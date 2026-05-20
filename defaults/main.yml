@@ -188,6 +188,11 @@ helm_gitlab_helm_release_values:
           requests:
             cpu: 25m 
             memory: 100Mi
+      deployments:
+        default:
+          ingress:
+            path: /
+            pathType: ImplementationSpecific
       minReplicas: 1
       maxReplicas: 1
       resources:
