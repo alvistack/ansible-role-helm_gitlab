@@ -36,6 +36,8 @@ helm_gitlab_helm_release_values:
       enabled: true
       class: nginx
       configureCertmanager: false
+      path: /
+      pathType: ImplementationSpecific
     minio:
       enabled: false
     appConfig:
