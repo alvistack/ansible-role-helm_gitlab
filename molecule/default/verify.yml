@@ -50,7 +50,7 @@
 
     - name: check page
       ansible.builtin.uri:
-        url: http://{{ inventory_hostname }}
+        url: http://{{ inventory_hostname }}/gitlab
         status_code: 200
         timeout: 300
         return_content: true
