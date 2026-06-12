@@ -2,6 +2,32 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 9.11.6 (2026-06-10)
+
+No changes.
+
+## 9.11.5 (2026-05-26)
+
+### Fixed (2 changes)
+
+- [Toolbox: Fix boto config when using Workload Identity](https://gitlab.com/gitlab-org/security/charts/gitlab/-/commit/f79c362451298a4bfc3a888e33440a4ae31d6823)
+- [Revert make kerberos keytab updates dynamic](https://gitlab.com/gitlab-org/security/charts/gitlab/-/commit/3022ff18281ab97b846d7610aece464c6525d378)
+
+## 9.11.4 (2026-05-13)
+
+### Added (1 change)
+
+- [Gateway API: Support backend TLS for KAS/Registry/Workhorse](https://gitlab.com/gitlab-org/security/charts/gitlab/-/commit/7f6efbbed24956f5bbd0ec8396572e60389c6da4)
+
+### Fixed (1 change)
+
+- [Fix dependencyProxy bucket validation when disabled](https://gitlab.com/gitlab-org/security/charts/gitlab/-/commit/26e4da55ca2c1e9e192a732150a2ca15cd84a62f)
+
+### Changed (2 changes)
+
+- [Update gitlab-runner to v0.88.2](https://gitlab.com/gitlab-org/security/charts/gitlab/-/commit/8f7e27f76912818061825eb2549275af5f74b98e)
+- [chore: bump gitlab-zoekt chart to 3.11.0](https://gitlab.com/gitlab-org/security/charts/gitlab/-/commit/fcc32831c118f14bb588337a83c045e8e1d04f5e)
+
 ## 9.11.3 (2026-05-05)
 
 No changes.
