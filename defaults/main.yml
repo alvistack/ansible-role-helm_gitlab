@@ -87,7 +87,7 @@ helm_gitlab_helm_release_values:
         repository: bitnamilegacy/redis-exporter
         pullPolicy: IfNotPresent
   postgresql:
-    install: true 
+    install: true
     image:
       registry: docker.io
       repository: bitnamilegacy/postgresql
@@ -186,7 +186,7 @@ helm_gitlab_helm_release_values:
         image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ce
         resources:
           requests:
-            cpu: 25m 
+            cpu: 25m
             memory: 100Mi
       deployments:
         default:
