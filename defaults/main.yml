@@ -61,10 +61,18 @@ helm_gitlab_helm_release_values:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/certificates
         pullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
     kubectl:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
         pullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
     gitlabBase:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
@@ -86,6 +94,10 @@ helm_gitlab_helm_release_values:
         registry: docker.io
         repository: bitnamilegacy/redis-exporter
         pullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
   postgresql:
     install: true
     image:
@@ -95,20 +107,32 @@ helm_gitlab_helm_release_values:
     primary:
       resources:
         requests:
-          cpu: 25m
-          memory: 100Mi
+          cpu: 50m
+          memory: 256Mi
     metrics:
       enabled: true
       image:
         registry: docker.io
         repository: bitnamilegacy/postgres-exporter
         pullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
   minio:
     image: docker.io/minio/minio
     imagePullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
     minioMc:
       image: docker.io/minio/mc
       pullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
   registry:
     enabled: false
     image:
@@ -117,11 +141,19 @@ helm_gitlab_helm_release_values:
     hpa:
       minReplicas: 1
       maxReplicas: 1
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
   shared-secrets:
     selfsign:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign
         pullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
   gitlab-runner:
     install: false
   gitlab:
@@ -132,28 +164,36 @@ helm_gitlab_helm_release_values:
       replicas: 1
       resources:
         requests:
-          cpu: 25m
-          memory: 100Mi
+          cpu: 100m
+          memory: 512Mi
     gitlab-exporter:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter
         pullPolicy: IfNotPresent
       resources:
         requests:
-          cpu: 25m
-          memory: 100Mi
+          cpu: 50m
+          memory: 128Mi
     kas:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-kas
         pullPolicy: IfNotPresent
       minReplicas: 1
       maxReplicas: 1
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
     gitlab-shell:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-shell
         pullPolicy: IfNotPresent
       minReplicas: 1
       maxReplicas: 1
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
     sidekiq:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ce
@@ -162,22 +202,26 @@ helm_gitlab_helm_release_values:
       maxReplicas: 1
       resources:
         requests:
-          cpu: 25m
-          memory: 1G
+          cpu: 250m
+          memory: 1024Mi
     toolbox:
       enabled: false
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ce
         pullPolicy: IfNotPresent
       replicas: 1
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
     migrations:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-toolbox-ce
         pullPolicy: IfNotPresent
       resources:
         requests:
-          cpu: 25m
-          memory: 100Mi
+          cpu: 50m
+          memory: 256Mi
     webservice:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ce
@@ -186,8 +230,8 @@ helm_gitlab_helm_release_values:
         image: registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ce
         resources:
           requests:
-            cpu: 25m
-            memory: 100Mi
+            cpu: 50m
+            memory: 128Mi
       deployments:
         default:
           ingress:
@@ -197,5 +241,5 @@ helm_gitlab_helm_release_values:
       maxReplicas: 1
       resources:
         requests:
-          cpu: 25m
-          memory: 1G
+          cpu: 250m
+          memory: 1024Mi
