@@ -146,7 +146,7 @@ helm_gitlab_helm_release_values:
         cpu: 50m
         memory: 128Mi
   shared-secrets:
-    enabled: false
+    enabled: true
     selfsign:
       image:
         repository: registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign
